@@ -1,6 +1,6 @@
 ---
 name: working-agreement
-description: Working habits for a coding task — investigate before editing, verify to the scale of the change, report honestly, and leave consequential decisions to the user.
+description: Working habits for a coding task — investigate before editing, verify to the scale of the change, report honestly, and delegate with the engine's own tools.
 ---
 
 # Working agreement
@@ -69,12 +69,40 @@ own instruction files.
 
 ## 6. Delegation
 
-1. Use a small number of subagents (roughly one to three) when it genuinely
-   helps: context-heavy reading, broad search, or well-bounded writing.
-2. Give each one a goal, the file scope it may touch, the acceptance check it
-   must meet, and what it must not change. A vague delegation returns vague
-   work.
-3. A subagent's report is an input, not a conclusion. Check the parts that
-   matter — the diff, the paths, the command output — before relying on it.
-4. Never delegate the final judgement. The agent that reports to the user owns
-   the accuracy of that report, including work done by subagents.
+Delegation is a tool call, not a conversation. In Reasonix the surface is
+`task` for one sub-agent, `fleet` for two or more with dependencies, and
+`read_only_task` for isolated research. Use them; the choice of tool is yours,
+not the user's.
+
+1. **Choose by shape, not by count.** Independent work that would only queue
+   behind each other goes to `fleet` in one call, with `depends_on` where order
+   matters. One focused job goes to `task`. Research that must not write goes
+   to `read_only_task`. Splitting a job into three sequential `task` calls is
+   the failure to avoid, not the pattern to follow.
+
+2. **Name the write targets.** Declare `write_paths` whenever you know them.
+   Under the default `subagent_claims = "strict"`, an undeclared writer claims
+   the whole workspace, so two concurrent undeclared writers fail preflight and
+   nothing starts. Under `"optimistic"` an undeclared writer reserves nothing
+   and holds only the path it is writing: it will not be refused, and it will
+   not keep another writer out either. That is a missing guard, not a licence —
+   declaring file paths is what buys mutual exclusion. A directory claim covers
+   every path beneath it and serializes those writers; writers ordered by
+   `depends_on` may share paths.
+
+3. **State the acceptance check.** A sub-agent acts on what its prompt says and
+   nothing else: it does not see this conversation, the project's instruction
+   files, or this agreement. Put the goal, the scope, the check, and what must
+   not change into the prompt itself. A rule you did not write into the task is
+   a rule the sub-agent does not have.
+
+4. **Read the completion report, do not accept it.** When a sub-agent calls
+   `complete_subtask`, the host lowers any criterion it could not back with a
+   receipt and says so in the report. A `pass` there is the host's adjudication
+   and worth relying on; a report that was never filed is prose, and prose is
+   a claim. Either way, check the parts that matter — the diff, the paths, the
+   command output — before you repeat them.
+
+5. **Own the final answer.** The agent talking to the user is accountable for
+   everything reported, including work done by sub-agents. Delegating the work
+   never delegates the judgement.

@@ -27,10 +27,41 @@ for everyone.
 
 The rules cover investigation before editing, verification proportional to the
 change, honest reporting, leaving the workspace clean, keeping consequential
-decisions with the user, and small, reviewable delegation.
+decisions with the user, and delegation that names the engine's real surface
+(`task`, `fleet`, `read_only_task`, `write_paths`).
 
 规则覆盖：改动前先调查、验证与改动规模匹配、如实报告、保持工作区整洁、把重要决策
-留给用户、以及小而可复核的委派。
+留给用户，以及用引擎真实词汇描述委派（`task`、`fleet`、`read_only_task`、
+`write_paths`）。
+
+## Scoped to one agent, by design / 有意只作用于主代理
+
+A `SessionStart` reference reaches the session's agent. In Reasonix a subagent
+starts from its task prompt alone: it does not receive this startup block, the
+project's instruction files, or the parent's conversation. That is deliberate
+in the host, and no plugin can change it.
+
+Therefore the delegation rules above constrain the **parent**. If you need a
+subagent to follow a rule, write that rule into the prompt you hand it — that is
+the only channel. The skill states this requirement rather than assuming
+inheritance.
+
+`SessionStart` 参考只送达会话主代理。Reasonix 的子代理只从任务提示词起步，拿不到
+这段启动文本、项目指令文件或父代理对话——这是宿主的设计，插件无法改变。
+
+所以上面的委派规则约束的是**主代理**。要让子代理遵守某条规则，必须把它写进你交给
+子代理的提示词里，那是唯一通道。技能里因此明说了这一点，而不是假定它会继承。
+
+## Requires / 依赖
+
+Written against the delegation surface of Reasonix (`task`, `fleet`,
+`read_only_task`, `write_paths`, `complete_subtask`). Other agents and older
+Reasonix builds still get the general sections; only the delegation section
+names tools they may not have.
+
+按 Reasonix 的委派接口编写（`task`、`fleet`、`read_only_task`、`write_paths`、
+`complete_subtask`）。其他 agent 或较旧的 Reasonix 版本仍可使用通用章节，只有
+委派一节会提到它们可能没有的工具。
 
 ## Install / 安装
 
