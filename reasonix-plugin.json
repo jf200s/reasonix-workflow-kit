@@ -1,0 +1,17 @@
+{
+  "apiVersion": "reasonix.io/plugin/v2",
+  "name": "workflow-kit",
+  "version": "1.0.0",
+  "description": "A portable working agreement: investigate before editing, verify to the scale of the change, keep delegated work reviewable, and leave consequential decisions to the user.",
+  "contributes": {
+    "skills": ["skills"],
+    "hooks": {
+      "SessionStart": [
+        {
+          "contextFile": "context/startup.md",
+          "description": "Load the one-page working agreement at session start"
+        }
+      ]
+    }
+  }
+}
