@@ -70,15 +70,15 @@ own instruction files.
 ## 6. Delegation
 
 Delegation is a tool call, not a conversation. In Reasonix the surface is
-`task` for one sub-agent, `fleet` for two or more with dependencies, and
-`read_only_task` for isolated research. Use them; the choice of tool is yours,
-not the user's.
+`task` for one sub-agent, `fleet` for a batch of them, and `read_only_task` for
+isolated research. Use them; the choice of tool is yours, not the user's.
 
-1. **Choose by shape, not by count.** Independent work that would only queue
-   behind each other goes to `fleet` in one call, with `depends_on` where order
-   matters. One focused job goes to `task`. Research that must not write goes
-   to `read_only_task`. Splitting a job into three sequential `task` calls is
-   the failure to avoid, not the pattern to follow.
+1. **Choose by shape, not by count.** Work that can run at the same time goes
+   to one `fleet` call, with `depends_on` only where a task needs an earlier
+   answer; independent items need no dependency and run in parallel. One
+   focused job goes to `task`. Research that must not write goes to
+   `read_only_task`. Splitting a job into three sequential `task` calls is the
+   failure to avoid, not the pattern to follow.
 
 2. **Name the write targets.** Declare `write_paths` whenever you know them.
    Under the default `subagent_claims = "strict"`, an undeclared writer claims
@@ -90,11 +90,13 @@ not the user's.
    every path beneath it and serializes those writers; writers ordered by
    `depends_on` may share paths.
 
-3. **State the acceptance check.** A sub-agent acts on what its prompt says and
-   nothing else: it does not see this conversation, the project's instruction
-   files, or this agreement. Put the goal, the scope, the check, and what must
-   not change into the prompt itself. A rule you did not write into the task is
-   a rule the sub-agent does not have.
+3. **State the acceptance check.** A sub-agent starts from its task prompt plus
+   host framing around it: a workspace note, a completion contract, and — in a
+   `fleet` — the final answers of its `depends_on` dependencies. It does not get
+   this conversation, the project's instruction files, or this agreement. So put
+   the goal, the scope, the check, and what must not change into the prompt
+   itself. A rule you did not write into the task is a rule the sub-agent does
+   not have, and no dependency answer can stand in for it.
 
 4. **Read the completion report, do not accept it.** When a sub-agent calls
    `complete_subtask`, the host lowers any criterion it could not back with a

@@ -37,9 +37,11 @@ decisions with the user, and delegation that names the engine's real surface
 ## Scoped to one agent, by design / 有意只作用于主代理
 
 A `SessionStart` reference reaches the session's agent. In Reasonix a subagent
-starts from its task prompt alone: it does not receive this startup block, the
-project's instruction files, or the parent's conversation. That is deliberate
-in the host, and no plugin can change it.
+starts from its task prompt plus the host's own framing around it — a workspace
+note, a completion contract, and the `depends_on` answers in a `fleet`. What it
+never receives is this startup block, the project's instruction files, or the
+parent's conversation. That is deliberate in the host, and no plugin can change
+it.
 
 Therefore the delegation rules above constrain the **parent**. If you need a
 subagent to follow a rule, write that rule into the prompt you hand it — that is
