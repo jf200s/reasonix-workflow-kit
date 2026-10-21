@@ -48,8 +48,10 @@ subagent to follow a rule, write that rule into the prompt you hand it — that 
 the only channel. The skill states this requirement rather than assuming
 inheritance.
 
-`SessionStart` 参考只送达会话主代理。Reasonix 的子代理只从任务提示词起步，拿不到
-这段启动文本、项目指令文件或父代理对话——这是宿主的设计，插件无法改变。
+`SessionStart` 参考只送达会话主代理。Reasonix 的子代理从任务提示词起步，外加宿主
+自己注入的框架——工作区说明、完成协议，以及 `fleet` 里 `depends_on` 依赖项的最终
+答案。它拿不到的是这段启动文本、项目指令文件或父代理对话——这是宿主的设计，插件
+无法改变。
 
 所以上面的委派规则约束的是**主代理**。要让子代理遵守某条规则，必须把它写进你交给
 子代理的提示词里，那是唯一通道。技能里因此明说了这一点，而不是假定它会继承。

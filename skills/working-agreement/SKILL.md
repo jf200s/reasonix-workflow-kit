@@ -91,19 +91,24 @@ isolated research. Use them; the choice of tool is yours, not the user's.
    `depends_on` may share paths.
 
 3. **State the acceptance check.** A sub-agent starts from its task prompt plus
-   host framing around it: a workspace note, a completion contract, and — in a
-   `fleet` — the final answers of its `depends_on` dependencies. It does not get
-   this conversation, the project's instruction files, or this agreement. So put
-   the goal, the scope, the check, and what must not change into the prompt
-   itself. A rule you did not write into the task is a rule the sub-agent does
-   not have, and no dependency answer can stand in for it.
+   host framing around it — for example a workspace note, a completion
+   contract, and, in a `fleet`, the final answers of its `depends_on`
+   dependencies. It does not get this conversation, the project's instruction
+   files, or this agreement. So put the goal, the scope, the check, and what
+   must not change into the prompt itself. A rule you did not write into the
+   task is a rule the sub-agent does not have, and no dependency answer can
+   stand in for it.
 
 4. **Read the completion report, do not accept it.** When a sub-agent calls
-   `complete_subtask`, the host lowers any criterion it could not back with a
-   receipt and says so in the report. A `pass` there is the host's adjudication
-   and worth relying on; a report that was never filed is prose, and prose is
-   a claim. Either way, check the parts that matter — the diff, the paths, the
-   command output — before you repeat them.
+   `complete_subtask`, the host checks each satisfied criterion against receipts
+   it recorded itself and lowers the ones nothing backs, saying so in the report.
+   What that proves is narrower than it reads: a receipt records that a command
+   ran and exited successfully, or that a path was written or read — not that
+   the output supports the claim made about it. And a report that lists no
+   criteria is lowered at none of them, so a `status` of `complete` there is
+   untouched. What the host screens is a claim; it never raises one either. So
+   check the parts that matter — the diff, the paths, the command output —
+   before you repeat them.
 
 5. **Own the final answer.** The agent talking to the user is accountable for
    everything reported, including work done by sub-agents. Delegating the work

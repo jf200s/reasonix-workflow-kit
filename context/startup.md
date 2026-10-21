@@ -27,5 +27,7 @@ Follow these unless the user's instruction in this session says otherwise.
    fail preflight. A sub-agent gets its prompt plus host framing — a workspace
    note, a completion contract, and any `depends_on` answers — but not this
    conversation, the project instructions, or this agreement. Put the goal,
-   scope, and acceptance check in the prompt. Then read what comes back;
-   delegating work never delegates the judgement.
+   scope, and acceptance check in the prompt. Then read what comes back and
+   check it yourself: a completed report is a claim the host screened against
+   receipts, not a verdict it reached. Delegating work never delegates the
+   judgement.
