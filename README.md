@@ -94,8 +94,17 @@ session after edits:
 reasonix plugin install /path/to/reasonix-workflow-kit --link --replace --yes
 ```
 
-在 Studio 中：**设置 → 扩展 → 已安装 → 添加**，选择本仓库目录，先「查看内容」
-再安装。
+在 Studio 中：**扩展 → 已安装**，在「插件包」里点**添加**，把本仓库文件夹拖进安装器
+（或点「选文件夹」）。安装固定为两步：先选来源，点「查看内容」看清它贡献了什么，
+再点安装。注意 Studio 安装器是把本地包**复制**进用户插件存储的，改动后需要重新
+安装；要边改边看请用上面的 `--link`。
+
+In Studio: **Settings → Extension → Installed** (**扩展 → 已安装**), then
+**Add** under **Plugin packages**, and drag the folder onto the installer (or
+click **选文件夹**). Installing is always two steps: choose the source, select
+**See what it is** (**查看内容**), then **Install**. The Studio installer
+*copies* a local package into your plugin storage, so edits need a reinstall —
+use `--link` above to iterate.
 
 ## Use / 使用
 

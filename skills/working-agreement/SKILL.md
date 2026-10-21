@@ -1,6 +1,6 @@
 ---
 name: working-agreement
-description: Working habits for a coding task — investigate before editing, verify to the scale of the change, report honestly, and delegate with the engine's own tools.
+description: Investigate before editing, verify to scale, report honestly, delegate to the right tool.
 ---
 
 # Working agreement
